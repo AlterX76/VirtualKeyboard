@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>virtualBoard_de.qm</file>
+        <file>virtualBoard_en.qm</file>
+        <file>virtualBoard_fr.qm</file>
+        <file>virtualBoard_it.qm</file>
+        <file>virtualBoard_ru.qm</file>
+    </qresource>
+</RCC>

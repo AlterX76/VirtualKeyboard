@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/TastieraVirtuale">
+        <file alias="logo">images/keyboard.png</file>
+        <file alias="passwdEcho">images/encrypted.png</file>
+        <file alias="normalEcho">images/decrypted.png</file>
+        <file alias="copy">images/editcopy.png</file>
+        <file alias="paste">images/editpaste.png</file>
+        <file alias="cut">images/editcut.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>sounds/click.wav</file>
+    </qresource>
+</RCC>
