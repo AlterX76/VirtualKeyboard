@@ -14,7 +14,7 @@ Tester::Tester(QWidget *parent)
 
     ui->setupUi(this);    
     myTranslator = new QTranslator(this);
-    this->myKeyboard = new widgetKeyBoard(false);
+    this->myKeyboard = new widgetKeyBoard(true);
     this->myKeyboard->setZoomFacility(true);
     this->myKeyboard->enableSwitchingEcho(true); // enable possibility to change echo through keyboard
     this->myKeyboard->createKeyboard(); // only create keyboard
@@ -26,6 +26,7 @@ Tester::Tester(QWidget *parent)
     ui->listWidget->addItem("French");
     ui->listWidget->addItem(defaultLanguage.text());
     ui->listWidget->addItem("Russian");
+    ui->listWidget->addItem("Arabic");
     ui->listWidget->setCurrentRow(3);
     on_listWidget_itemClicked(&defaultLanguage);
     move((QApplication::desktop()->screenGeometry().width() - this->width()) / 2, (QApplication::desktop()->screenGeometry().height() - this->height()) / 2);
@@ -89,6 +90,8 @@ void Tester::on_listWidget_itemClicked(QListWidgetItem *item)
         local = new QLocale(QLocale::Italian);
     else if (newLang == "English")
         local = new QLocale(QLocale::English);
+    else if (newLang == "Arabic")
+        local = new QLocale(QLocale::Arabic);
     else
         local = new QLocale();
     if (myTranslator->load(*local, QLatin1String("virtualBoard"), QLatin1String("_"), QLatin1String(":/")))
