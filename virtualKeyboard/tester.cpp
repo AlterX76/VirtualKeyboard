@@ -14,7 +14,7 @@ Tester::Tester(QWidget *parent)
 
     ui->setupUi(this);    
     myTranslator = new QTranslator(this);
-    this->myKeyboard = new widgetKeyBoard(true);
+    this->myKeyboard = new widgetKeyBoard(false);
     this->myKeyboard->setZoomFacility(true);
     this->myKeyboard->enableSwitchingEcho(true); // enable possibility to change echo through keyboard
     this->myKeyboard->createKeyboard(); // only create keyboard
