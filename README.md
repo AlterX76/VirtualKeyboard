@@ -13,8 +13,11 @@ Features:
 * Dual mode keyboard: large and small
 * zoom facility for pressed keys
 
-Supported Language:
-* Italian
+Supported Languages:
+* Arabic
+* English
 * French
 * German
+* Italian
+* Russian
 
