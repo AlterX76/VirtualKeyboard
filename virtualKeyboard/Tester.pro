@@ -25,14 +25,7 @@ TRANSLATIONS += virtualBoard_it.ts \
     virtualBoard_ru.ts \
     virtualBoard_en.ts \
     virtualBoard_de.ts \
-    virtualBoard_fr.ts \
-    virtualBoard_ar.ts
+    virtualBoard_fr.ts
 
 RESOURCES += virtualboard.qrc \
     languages.qrc
-
-OTHER_FILES += \
-    *.ts
-
-DISTFILES += \
-    uncrustify.cfg

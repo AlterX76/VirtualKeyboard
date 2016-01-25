@@ -9,17 +9,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="tester.ui" line="58"/>
+        <location filename="tester.ui" line="55"/>
         <source>Open virtual keyboard!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="tester.ui" line="65"/>
+        <location filename="tester.ui" line="62"/>
         <source>Hide virtual keyboard!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="tester.cpp" line="21"/>
+        <location filename="tester.cpp" line="15"/>
         <source>Focus that below without virtual keyboard TAB:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -27,250 +27,230 @@
 <context>
     <name>widgetKeyBoard</name>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="399"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="372"/>
         <source>0</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="400"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="373"/>
         <source>/</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="401"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="374"/>
         <source>?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="402"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="375"/>
         <source>&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="434"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="403"/>
         <source>Q</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="435"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="404"/>
         <source>W</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="436"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="405"/>
         <source>E</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="437"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="406"/>
         <source>R</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="438"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="407"/>
         <source>T</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="439"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="408"/>
         <source>Y</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="440"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="409"/>
         <source>U</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="441"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="410"/>
         <source>I</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="442"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="411"/>
         <source>O</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="443"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="412"/>
         <source>P</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="444"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="413"/>
         <source>+</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="445"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="414"/>
         <source>*</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="446"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="415"/>
         <source>-</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="461"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="430"/>
         <source>A</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="462"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="431"/>
         <source>S</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="463"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="432"/>
         <source>D</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="464"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="433"/>
         <source>F</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="465"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="434"/>
         <source>G</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="466"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="435"/>
         <source>H</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="467"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="436"/>
         <source>J</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="468"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="437"/>
         <source>K</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="469"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="438"/>
         <source>L</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="471"/>
-        <source>ň</source>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="439"/>
+        <source>ò</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="473"/>
-        <source>ŕ</source>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="440"/>
+        <source>à</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="476"/>
-        <source>uo</source>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="441"/>
+        <source>ù</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="477"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="442"/>
         <source>@</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="505"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="470"/>
         <source>_</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="506"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="471"/>
         <source>Z</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="507"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="472"/>
         <source>X</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="508"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="473"/>
         <source>C</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="509"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="474"/>
         <source>V</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="510"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="475"/>
         <source>B</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="511"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="476"/>
         <source>N</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="512"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="477"/>
         <source>M</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="513"/>
-        <source>!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="514"/>
-        <source>#</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="515"/>
-        <source>$</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="516"/>
-        <source>%</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="517"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="478"/>
         <source>,</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="518"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="479"/>
         <source>;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="519"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="480"/>
         <source>:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="keyboard/widgetKeyBoard.cpp" line="520"/>
+        <location filename="keyboard/widgetKeyBoard.cpp" line="481"/>
         <source>.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>DEL</source>
-        <translation type="vanished">Canc</translation>
+        <translation>Canc</translation>
     </message>
     <message>
         <source>CTRL</source>
-        <translation type="vanished">Ctrl</translation>
+        <translation>Ctrl</translation>
     </message>
     <message>
         <source>RETURN</source>
-        <translation type="vanished">ENTER</translation>
+        <translation>ENTER</translation>
     </message>
     <message>
         <source>ALT</source>
-        <translation type="vanished">Alt</translation>
+        <translation>Alt</translation>
     </message>
 </context>
 </TS>
