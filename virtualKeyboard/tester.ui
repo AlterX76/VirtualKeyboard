@@ -16,6 +16,20 @@
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
+     <item row="1" column="0">
+      <widget class="QPushButton" name="pushButton">
+       <property name="text">
+        <string>Open virtual keyboard!</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QPushButton" name="pushButton_2">
+       <property name="text">
+        <string>Hide virtual keyboard!</string>
+       </property>
+      </widget>
+     </item>
      <item row="0" column="0">
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
@@ -52,17 +66,10 @@
        </item>
       </layout>
      </item>
-     <item row="1" column="0">
-      <widget class="QPushButton" name="pushButton">
+     <item row="3" column="0">
+      <widget class="QPushButton" name="pushButton_3">
        <property name="text">
-        <string>Open virtual keyboard!</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QPushButton" name="pushButton_2">
-       <property name="text">
-        <string>Hide virtual keyboard!</string>
+        <string>Example of VirtualKeyboard embedded in QFrame</string>
        </property>
       </widget>
      </item>

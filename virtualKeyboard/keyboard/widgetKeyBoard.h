@@ -47,7 +47,7 @@
             QLabel *        zoomedWidget();
 
         public slots:
-            void            show(QWidget *activeForm);
+            void            show(QWidget *activeForm, QLineEdit *first = NULL);
             void            hide(bool noChangeColor);
             void            focusThis(QLineEdit *control);
 
@@ -71,7 +71,6 @@
             QWidget         *m_activeWindow;
             QLineEdit		*m_currentTextBox; // mantiene il riferimento alla casella correntemente in uso
             QLabel          *m_zoomedKey; // used for zoomed pressed key
-            static bool     m_created;
             bool            m_embeddedKeyboard;
             bool            m_echoMode; // status of current text object for echo
             bool            m_zoomFacilityEmbedded;

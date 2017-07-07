@@ -5,7 +5,7 @@
 #include <QDesktopWidget>
 #include <QTranslator>
 #include <QDebug>
-
+#include "form.h"
 
 Tester::Tester(QWidget *parent)
     : QWidget(parent), ui(new Ui::Tester), myKeyboard(NULL)
@@ -98,4 +98,11 @@ void Tester::on_listWidget_itemClicked(QListWidgetItem *item)
         qApp->installTranslator(myTranslator);
     else
         qDebug("Failed to load a translation for QT in your local language");
+}
+
+void Tester::on_pushButton_3_clicked()
+{
+    Form *emb = new Form();
+
+    emb->show();
 }

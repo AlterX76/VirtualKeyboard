@@ -24,8 +24,6 @@
 #define ZOOMED_WIDGET_STYLESHEET    "border-radius:8px;font:bold 16px;color:white;"
 
 
-bool widgetKeyBoard::m_created = false;
-
 
 widgetKeyBoard::widgetKeyBoard(bool embeddedKeyboard, QWidget *activeForm, QWidget *parent) :
         QWidget(parent), m_nextInput(NULL), m_activeWindow(activeForm),
@@ -316,18 +314,22 @@ void widgetKeyBoard::soundClick(void)
 #endif
 }
 
-void widgetKeyBoard::show(QWidget *activeForm)
+void widgetKeyBoard::show(QWidget *activeForm, QLineEdit *first)
 {
     this->m_activeWindow = activeForm;
-    this->init_keyboard(NULL);
-    if (this->windowState() == Qt::WindowMinimized)
-        this->setWindowState(Qt::WindowNoState);
-    this->setStatusEchoMode(false);
-    this->m_clipboard->clear();
-    this->move(20, QApplication::desktop()->screenGeometry().height() - this->height() - 200);
-    this->borderFrame(true);
-    QWidget::show();
-
+    this->init_keyboard(first);
+    if (this->parent() == 0) {
+        if (this->windowState() == Qt::WindowMinimized)
+            this->setWindowState(Qt::WindowNoState);
+        this->setStatusEchoMode(false);
+        this->m_clipboard->clear();
+        this->move(20, QApplication::desktop()->screenGeometry().height() - this->height() - 200);
+        this->borderFrame(true);
+        QWidget::show();
+    }
+    else {
+        qobject_cast<QWidget*>(this->parent())->setVisible(true);
+    }
 }
 
 
@@ -372,7 +374,10 @@ void widgetKeyBoard::hide(bool changeColor)
                 this->m_currentTextBox = this->setDefaultTextStyle(this->m_currentTextBox);
         this->m_currentTextBox = NULL;
         this->m_activeWindow = NULL;
-        setVisible(false);
+        if (this->parent() != 0)
+            qobject_cast<QWidget*>(this->parent())->setVisible(false);
+        else
+            setVisible(false);
     }
     catch (...) {
     }
@@ -387,9 +392,11 @@ void widgetKeyBoard::createKeyboard(void)
     QString         tmpStyle = QString::null;
     QString         backspace;
 
+    /*
     if (widgetKeyBoard::m_created == true) // tastiera già  creata: esce
 		return;
     widgetKeyBoard::m_created = true; // segnala che è stata creata la tastiera
+    */
 	//
     // stampa tasti numerici:
     tmpLayout->addWidget(createNewKey("\\", "\\"));

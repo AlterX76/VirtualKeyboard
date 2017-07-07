@@ -12,14 +12,17 @@ SOURCES += main.cpp \
     tester.cpp \
     keyboard/QKeyPushButton.cpp \
     keyboard/widgetKeyBoard.cpp \
-    examplemyfocus.cpp
+    examplemyfocus.cpp \
+    form.cpp
 
 HEADERS += tester.h \
     keyboard/QKeyPushButton.h \
     keyboard/widgetKeyBoard.h \
-    examplemyfocus.h
+    examplemyfocus.h \
+    form.h
 
-FORMS += tester.ui
+FORMS += tester.ui \
+    form.ui
 
 TRANSLATIONS += virtualBoard_it.ts \
     virtualBoard_ru.ts \
