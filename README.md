@@ -12,6 +12,7 @@ Features:
 * move around textbox using TAB or directly click on a textbox (require subclassing as in the provided example)
 * Dual mode keyboard: large and small
 * zoom facility for pressed keys
+* embedded or floating keyboard
 
 Supported Languages:
 * Arabic
