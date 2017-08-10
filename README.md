@@ -1,6 +1,8 @@
 # VirtualKeyboard
 A virtual keyboard for touch-screen application
 
+<img src=keyboard.png />
+
 Virtual Keyboard  for touch-screen devices written in C/C++ Qt, compatible for Qt 4.x and 5.x
 The widget works with QLineEdit, but you can modify it for your convenience.
 
