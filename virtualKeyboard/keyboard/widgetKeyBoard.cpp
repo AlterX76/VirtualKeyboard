@@ -25,8 +25,8 @@
 
 
 
-widgetKeyBoard::widgetKeyBoard(bool embeddedKeyboard, QWidget *activeForm, QWidget *parent) :
-        QWidget(parent), m_nextInput(NULL), m_activeWindow(activeForm),
+widgetKeyBoard::widgetKeyBoard(bool embeddedKeyboard, QWidget *activeForm,  bool onlyNumericPad, QWidget *parent) :
+        QWidget(parent), m_nextInput(NULL), m_activeWindow(activeForm), m_numericPad(onlyNumericPad),
         m_currentTextBox(NULL), m_embeddedKeyboard(embeddedKeyboard), m_echoMode(false), m_zoomFacilityEmbedded(false), m_enablePasswordEcho(false),
         m_player(QDir::currentPath() + CLICK_SOUND), m_clipboard(QApplication::clipboard())
 {
@@ -182,7 +182,7 @@ void widgetKeyBoard::receiptChildKey(QKeyEvent *event, QLineEdit *focusThisContr
         return;
 //
     // inizia l'analisi del carattere ricevuto:
-    QString newKey = event->text();
+    QString newKey = event->text().trimmed();
     QString tmpReceiptString = nextInput->text();
     int     tmpPos = nextInput->cursorPosition();
 
@@ -341,6 +341,11 @@ void widgetKeyBoard::borderFrame(bool visible)
     //    this->setWindowFlags(Qt::Dialog | Qt::WindowStaysOnTopHint | Qt::MSWindowsFixedSizeDialogHint | Qt::CustomizeWindowHint);
 }
 
+bool widgetKeyBoard::isNumericPad()
+{
+    return (m_numericPad);
+}
+
 QLabel *widgetKeyBoard::zoomedWidget()
 {
     return (this->m_zoomedKey);
@@ -384,180 +389,214 @@ void widgetKeyBoard::hide(bool changeColor)
 }
 
 
-void widgetKeyBoard::createKeyboard(void)
+void widgetKeyBoard::createKeyboard()
 {
 	QKeyPushButton	*tmp = NULL;	
     QVBoxLayout     *tmpVLayout = new QVBoxLayout;
     QHBoxLayout     *tmpLayout = new QHBoxLayout;
+    QGridLayout     *gridLayout = NULL;
     QString         tmpStyle = QString::null;
     QString         backspace;
 
-    /*
-    if (widgetKeyBoard::m_created == true) // tastiera già  creata: esce
-		return;
-    widgetKeyBoard::m_created = true; // segnala che è stata creata la tastiera
-    */
-	//
-    // stampa tasti numerici:
-    tmpLayout->addWidget(createNewKey("\\", "\\"));
-	for (short i = 49; i <= 57; i++) {
-        tmpLayout->addWidget(createNewKey(QChar(i), QString::number(i - 48)));
-	}
-    tmpLayout->addWidget(createNewKey(tr("0"), "0"));
-    tmpLayout->addWidget(createNewKey(tr("/"), "/"));
-    tmpLayout->addWidget(createNewKey(tr("?"), "?"));
-    tmpLayout->addWidget(createNewKey(tr("'"), "'"));
-    if (this->isEmbeddedKeyboard() == true) {
-        backspace = KEY_BACKSPACE_EMBEDDED;
-        tmpStyle = QString(KEY_BACKSPACE_EMBEDDED);
+    if (this->isNumericPad() == true) {
+        gridLayout = new QGridLayout;
+        for (short i = 49; i <= 51; i++)
+            tmpLayout->addWidget(createNewKey(QChar(i), QString::number(i - 48)));
+        gridLayout->addLayout(tmpLayout, 2, 0);
+        tmpLayout = new QHBoxLayout;
+        for (short i = 52; i <= 54; i++)
+            tmpLayout->addWidget(createNewKey(QChar(i), QString::number(i - 48)));
+        gridLayout->addLayout(tmpLayout, 1, 0);
+        tmpLayout = new QHBoxLayout;
+        for (short i = 55; i <= 57; i++)
+            tmpLayout->addWidget(createNewKey(QChar(i), QString::number(i - 48)));
+        gridLayout->addLayout(tmpLayout, 0, 0);
+        tmpLayout = new QHBoxLayout;
+        tmp = createNewKey(tr("0"), "0");
+        tmp->setMinimumSize(tmp->minimumSize().width() * 2, tmp->minimumSize().height());
+        tmpLayout->addWidget(tmp);
+        tmpLayout->addWidget(createNewKey(".", " . ")); // to avoid language translation
+        gridLayout->addLayout(tmpLayout, 3, 0);
+        tmpLayout = new QHBoxLayout;
+        tmpLayout->addWidget(createNewKey(",", " , ")); // to avoid language translation
+        if (this->isEmbeddedKeyboard() == true) {
+            backspace = KEY_BACKSPACE_EMBEDDED;
+            tmpStyle = QString(KEY_BACKSPACE_EMBEDDED);
+        }
+        else {
+            backspace = "BACKSPACE";
+            tmpStyle = QString(KEY_BACKSPACE);
+        }
+        tmp = createNewKey(tmpStyle, backspace);
+        tmp->setMaximumWidth(tmp->maximumWidth() * 2);
+        tmp->setMinimumWidth(tmp->minimumWidth() * 2);
+        tmpLayout->addWidget(tmp);
+        gridLayout->addLayout(tmpLayout, 4, 0);
+        this->setLayout(gridLayout);
     }
     else {
-        backspace = "BACKSPACE";
-        tmpStyle = QString(KEY_BACKSPACE);
+        //
+        // stampa tasti numerici:
+        tmpLayout->addWidget(createNewKey("\\", "\\"));
+        for (short i = 49; i <= 57; i++) {
+            tmpLayout->addWidget(createNewKey(QChar(i), QString::number(i - 48)));
+        }
+        tmpLayout->addWidget(createNewKey(tr("0"), "0"));
+        tmpLayout->addWidget(createNewKey(tr("/"), "/"));
+        tmpLayout->addWidget(createNewKey(tr("?"), "?"));
+        tmpLayout->addWidget(createNewKey(tr("'"), "'"));
+        if (this->isEmbeddedKeyboard() == true) {
+            backspace = KEY_BACKSPACE_EMBEDDED;
+            tmpStyle = QString(KEY_BACKSPACE_EMBEDDED);
+        }
+        else {
+            backspace = "BACKSPACE";
+            tmpStyle = QString(KEY_BACKSPACE);
+        }
+        tmp = createNewKey(tmpStyle, backspace);
+        tmp->setMaximumWidth(tmp->maximumWidth() * 2);
+        tmp->setMinimumWidth(tmp->minimumWidth() * 2);
+        tmpLayout->addWidget(tmp);
+        tmpStyle = QString(KEY_CANC);
+        if (this->isEmbeddedKeyboard() == true)
+            tmpStyle = tmpStyle.toLower();
+        tmp = createNewKey(tmpStyle, "DEL");
+        tmp->setMaximumWidth(tmp->maximumWidth());
+        tmp->setMinimumWidth(tmp->minimumWidth());
+        tmpLayout->addWidget(tmp);
+    #if !defined(QT_ARCH_MACOSX)
+        tmpLayout->insertStretch(13, 1);
+    #endif
+        tmpVLayout->insertLayout(0, tmpLayout);
+        //
+        // Stampa linea della "Q":
+        tmpLayout = new QHBoxLayout;
+        QVBoxLayout *layoutReturn = new QVBoxLayout;
+        tmp = createNewKey(KEY_TAB, "TAB");
+        tmp->setMaximumWidth(tmp->maximumWidth() * 2 - 5);
+        tmp->setMinimumWidth(tmp->minimumWidth() * 2 - 5);
+        tmpLayout->addWidget(tmp);
+        tmpLayout->addWidget(createNewKey(tr("Q"), "Q"));
+        tmpLayout->addWidget(createNewKey(tr("W"), "W"));
+        tmpLayout->addWidget(createNewKey(tr("E"), "E"));
+        tmpLayout->addWidget(createNewKey(tr("R"), "R"));
+        tmpLayout->addWidget(createNewKey(tr("T"), "T"));
+        tmpLayout->addWidget(createNewKey(tr("Y"), "Y"));
+        tmpLayout->addWidget(createNewKey(tr("U"), "U"));
+        tmpLayout->addWidget(createNewKey(tr("I"), "I"));
+        tmpLayout->addWidget(createNewKey(tr("O"), "O"));
+        tmpLayout->addWidget(createNewKey(tr("P"), "P"));
+        tmpLayout->addWidget(createNewKey(tr("+"), "+"));
+        tmpLayout->addWidget(createNewKey(tr("*"), "*"));
+        tmpLayout->addWidget(createNewKey(tr("-"), "-"));
+    #if !defined(QT_ARCH_MACOSX)
+        tmpLayout->insertStretch(-1, 1);
+    #endif
+        layoutReturn->insertLayout(0, tmpLayout, 1); // inserisce la riga della "Q"
+        //
+        // Stampa linea della "A":
+        tmpLayout = new QHBoxLayout;
+        tmp = createNewKey(KEY_CAPS, "CAPS");
+        tmp->setMaximumWidth(tmp->maximumWidth() * 2 + 5);
+        tmp->setMinimumWidth(tmp->minimumWidth() * 2 + 5);
+        if (this->isEmbeddedKeyboard() == true)
+            tmpStyle = QString(EMBEDDED_KEYBOARD);
+        tmp->setStyleSheet(QString(DEFAULT_STYLE_BUTTON) + QString(CHANGED_BACKGROUND_BUTTON) + tmpStyle); // segnalato come attivo
+        tmpLayout->addWidget(tmp);
+        tmpLayout->addWidget(createNewKey(tr("A"), "A"));
+        tmpLayout->addWidget(createNewKey(tr("S"), "S"));
+        tmpLayout->addWidget(createNewKey(tr("D"), "D"));
+        tmpLayout->addWidget(createNewKey(tr("F"), "F"));
+        tmpLayout->addWidget(createNewKey(tr("G"), "G"));
+        tmpLayout->addWidget(createNewKey(tr("H"), "H"));
+        tmpLayout->addWidget(createNewKey(tr("J"), "J"));
+        tmpLayout->addWidget(createNewKey(tr("K"), "K"));
+        tmpLayout->addWidget(createNewKey(tr("L"), "L"));
+        tmpLayout->addWidget(createNewKey(tr(QString::fromLocal8Bit("ò").toUtf8()), QString::fromLocal8Bit("ò").toUtf8()));
+        tmpLayout->addWidget(createNewKey(tr(QString::fromLocal8Bit("à").toUtf8()), QString::fromLocal8Bit("à").toUtf8()));
+        tmpLayout->addWidget(createNewKey(tr(QString::fromLocal8Bit("ù").toUtf8()), QString::fromLocal8Bit("ù").toUtf8()));
+        tmpLayout->addWidget(createNewKey(tr("@"), "@"));
+        tmpLayout->insertStretch(-1, 1);
+    #if !defined(QT_ARCH_MACOSX)
+        layoutReturn->setSpacing(5);
+    #endif
+        layoutReturn->insertLayout(1, tmpLayout, 1); // inserisce la riga della "A"
+        //
+        // inserisce il vertical layout all'interno di un horizontal:
+        tmpLayout = new QHBoxLayout;
+        tmpLayout->insertLayout(0, layoutReturn, 1);
+        //
+        // inserisce anche il tasto invio:
+        tmp = createNewKey(KEY_RETURN, "RETURN");
+        tmp->setMaximumWidth(tmp->maximumWidth() * 2);
+        tmp->setMinimumWidth(tmp->minimumWidth() * 2);
+        tmp->setMinimumHeight(tmp->minimumHeight() * 2);
+        tmp->setMaximumHeight(tmp->maximumHeight() * 2);
+        tmpLayout->addWidget(tmp);
+        //
+        // inserisce l'horizontal all'interno del layout verticale principale:
+        tmpVLayout->insertLayout(1, tmpLayout);
+        //
+        // Stampa linea della "Z":
+        tmpLayout = new QHBoxLayout;
+        tmp = createNewKey(KEY_CUT_LEFT, "cut");
+        tmp->setMaximumWidth(tmp->maximumWidth() * 2);
+        tmp->setMinimumWidth(tmp->minimumWidth() * 2);
+        tmpLayout->addWidget(tmp);
+        tmpLayout->addWidget(createNewKey(tr("_"), "_"));
+        tmpLayout->addWidget(createNewKey(tr("Z"), "Z"));
+        tmpLayout->addWidget(createNewKey(tr("X"), "X"));
+        tmpLayout->addWidget(createNewKey(tr("C"), "C"));
+        tmpLayout->addWidget(createNewKey(tr("V"), "V"));
+        tmpLayout->addWidget(createNewKey(tr("B"), "B"));
+        tmpLayout->addWidget(createNewKey(tr("N"), "N"));
+        tmpLayout->addWidget(createNewKey(tr("M"), "M"));
+        tmpLayout->addWidget(createNewKey(tr(","), ","));
+        tmpLayout->addWidget(createNewKey(tr(";"), ";"));
+        tmpLayout->addWidget(createNewKey(tr(":"), ":"));
+        tmpLayout->addWidget(createNewKey(tr("."), "."));
+        tmp = createNewKey(KEY_CTRL_LEFT, "CTRL");
+        tmp->setMaximumWidth(tmp->maximumWidth() * 3 + 5);
+        tmp->setMinimumWidth(tmp->minimumWidth() * 3 + 5);
+        tmpLayout->addWidget(tmp);
+        tmpVLayout->insertLayout(2, tmpLayout);
+        //
+        // Stampa linea dello SPACE:
+        tmpLayout = new QHBoxLayout;
+        tmp = createNewKey(KEY_COPY, "copy");
+        tmp->setMaximumWidth(tmp->maximumWidth() * 2);
+        tmp->setMinimumWidth(tmp->minimumWidth() * 2);
+        tmpLayout->addWidget(tmp);
+        tmp = createNewKey(KEY_ALT, "ALT");
+        tmp->setMaximumWidth(tmp->maximumWidth() * 2);
+        tmp->setMinimumWidth(tmp->minimumWidth() * 2);
+        tmpLayout->addWidget(tmp);
+        tmp = createNewKey(KEY_SPACE, " ");
+        tmp->setMaximumWidth(tmp->maximumWidth() * 10);
+        tmp->setMinimumWidth(tmp->minimumWidth() * 10);
+        tmpLayout->addWidget(tmp);
+        // password echo button:
+        if (this->isEmbeddedKeyboard() == true)
+            tmpStyle = QString(KEY_HIDECHAR_EMBEDDED);
+        else
+            tmpStyle = QString(KEY_HIDECHAR);
+        tmp = createNewKey(tmpStyle, "echo");
+        tmp->setMaximumWidth(tmp->maximumWidth() * 2);
+        tmp->setMinimumWidth(tmp->minimumWidth() * 2);
+        tmpLayout->addWidget(tmp);
+        //
+        tmp = createNewKey(KEY_PASTE, "paste");
+        tmp->setMaximumWidth(tmp->maximumWidth() * 2);
+        tmp->setMinimumWidth(tmp->minimumWidth() * 2);
+        tmpLayout->addWidget(tmp);
+        tmpVLayout->insertLayout(3, tmpLayout);
+    #if defined (QT_ARCH_MACOSX)
+        tmpVLayout->setMargin(5);
+    #endif
+        //
+        // aggancia il layout a tutto il form:
+        this->setLayout(tmpVLayout);
     }
-    tmp = createNewKey(tmpStyle, backspace);
-    tmp->setMaximumWidth(tmp->maximumWidth() * 2);
-    tmp->setMinimumWidth(tmp->minimumWidth() * 2);
-	tmpLayout->addWidget(tmp);
-    tmpStyle = QString(KEY_CANC);
-    if (this->isEmbeddedKeyboard() == true)
-        tmpStyle = tmpStyle.toLower();
-    tmp = createNewKey(tmpStyle, "DEL");
-    tmp->setMaximumWidth(tmp->maximumWidth());
-    tmp->setMinimumWidth(tmp->minimumWidth());
-    tmpLayout->addWidget(tmp);
-#if !defined(QT_ARCH_MACOSX)
-    tmpLayout->insertStretch(13, 1);
-#endif
-	tmpVLayout->insertLayout(0, tmpLayout);
-	//
-	// Stampa linea della "Q":
-	tmpLayout = new QHBoxLayout;	
-    QVBoxLayout *layoutReturn = new QVBoxLayout;
-    tmp = createNewKey(KEY_TAB, "TAB");
-	tmp->setMaximumWidth(tmp->maximumWidth() * 2 - 5);
-	tmp->setMinimumWidth(tmp->minimumWidth() * 2 - 5);
-    tmpLayout->addWidget(tmp);
-    tmpLayout->addWidget(createNewKey(tr("Q"), "Q"));
-    tmpLayout->addWidget(createNewKey(tr("W"), "W"));
-    tmpLayout->addWidget(createNewKey(tr("E"), "E"));
-    tmpLayout->addWidget(createNewKey(tr("R"), "R"));
-    tmpLayout->addWidget(createNewKey(tr("T"), "T"));
-    tmpLayout->addWidget(createNewKey(tr("Y"), "Y"));
-    tmpLayout->addWidget(createNewKey(tr("U"), "U"));
-    tmpLayout->addWidget(createNewKey(tr("I"), "I"));
-    tmpLayout->addWidget(createNewKey(tr("O"), "O"));
-    tmpLayout->addWidget(createNewKey(tr("P"), "P"));
-    tmpLayout->addWidget(createNewKey(tr("+"), "+"));
-    tmpLayout->addWidget(createNewKey(tr("*"), "*"));
-    tmpLayout->addWidget(createNewKey(tr("-"), "-"));
-#if !defined(QT_ARCH_MACOSX)
-    tmpLayout->insertStretch(-1, 1);
-#endif
-    layoutReturn->insertLayout(0, tmpLayout, 1); // inserisce la riga della "Q"
-	//
-	// Stampa linea della "A":
-	tmpLayout = new QHBoxLayout;	
-    tmp = createNewKey(KEY_CAPS, "CAPS");
-	tmp->setMaximumWidth(tmp->maximumWidth() * 2 + 5);
-	tmp->setMinimumWidth(tmp->minimumWidth() * 2 + 5);                
-    if (this->isEmbeddedKeyboard() == true)
-        tmpStyle = QString(EMBEDDED_KEYBOARD);
-    tmp->setStyleSheet(QString(DEFAULT_STYLE_BUTTON) + QString(CHANGED_BACKGROUND_BUTTON) + tmpStyle); // segnalato come attivo
-	tmpLayout->addWidget(tmp);
-    tmpLayout->addWidget(createNewKey(tr("A"), "A"));
-    tmpLayout->addWidget(createNewKey(tr("S"), "S"));
-    tmpLayout->addWidget(createNewKey(tr("D"), "D"));
-    tmpLayout->addWidget(createNewKey(tr("F"), "F"));
-    tmpLayout->addWidget(createNewKey(tr("G"), "G"));
-    tmpLayout->addWidget(createNewKey(tr("H"), "H"));
-    tmpLayout->addWidget(createNewKey(tr("J"), "J"));
-    tmpLayout->addWidget(createNewKey(tr("K"), "K"));
-    tmpLayout->addWidget(createNewKey(tr("L"), "L"));
-    tmpLayout->addWidget(createNewKey(tr(QString::fromLocal8Bit("ò").toUtf8()), QString::fromLocal8Bit("ò").toUtf8()));
-    tmpLayout->addWidget(createNewKey(tr(QString::fromLocal8Bit("à").toUtf8()), QString::fromLocal8Bit("à").toUtf8()));
-    tmpLayout->addWidget(createNewKey(tr(QString::fromLocal8Bit("ù").toUtf8()), QString::fromLocal8Bit("ù").toUtf8()));
-    tmpLayout->addWidget(createNewKey(tr("@"), "@"));
-	tmpLayout->insertStretch(-1, 1);
-#if !defined(QT_ARCH_MACOSX)
-	layoutReturn->setSpacing(5);
-#endif
-    layoutReturn->insertLayout(1, tmpLayout, 1); // inserisce la riga della "A"
-	//
-	// inserisce il vertical layout all'interno di un horizontal:	
-	tmpLayout = new QHBoxLayout;
-	tmpLayout->insertLayout(0, layoutReturn, 1);
-	//
-	// inserisce anche il tasto invio:
-    tmp = createNewKey(KEY_RETURN, "RETURN");
-	tmp->setMaximumWidth(tmp->maximumWidth() * 2);
-	tmp->setMinimumWidth(tmp->minimumWidth() * 2);
-	tmp->setMinimumHeight(tmp->minimumHeight() * 2);
-	tmp->setMaximumHeight(tmp->maximumHeight() * 2);
-	tmpLayout->addWidget(tmp);
-	//
-    // inserisce l'horizontal all'interno del layout verticale principale:
-    tmpVLayout->insertLayout(1, tmpLayout);
-	//	
-	// Stampa linea della "Z":
-	tmpLayout = new QHBoxLayout;
-    tmp = createNewKey(KEY_CUT_LEFT, "cut");
-	tmp->setMaximumWidth(tmp->maximumWidth() * 2);
-	tmp->setMinimumWidth(tmp->minimumWidth() * 2);
-	tmpLayout->addWidget(tmp);
-    tmpLayout->addWidget(createNewKey(tr("_"), "_"));
-    tmpLayout->addWidget(createNewKey(tr("Z"), "Z"));
-    tmpLayout->addWidget(createNewKey(tr("X"), "X"));
-    tmpLayout->addWidget(createNewKey(tr("C"), "C"));
-    tmpLayout->addWidget(createNewKey(tr("V"), "V"));
-    tmpLayout->addWidget(createNewKey(tr("B"), "B"));
-    tmpLayout->addWidget(createNewKey(tr("N"), "N"));
-    tmpLayout->addWidget(createNewKey(tr("M"), "M"));
-    tmpLayout->addWidget(createNewKey(tr(","), ","));
-    tmpLayout->addWidget(createNewKey(tr(";"), ";"));
-    tmpLayout->addWidget(createNewKey(tr(":"), ":"));
-    tmpLayout->addWidget(createNewKey(tr("."), "."));
-    tmp = createNewKey(KEY_CTRL_LEFT, "CTRL");
-	tmp->setMaximumWidth(tmp->maximumWidth() * 3 + 5);
-	tmp->setMinimumWidth(tmp->minimumWidth() * 3 + 5);
-	tmpLayout->addWidget(tmp);
-	tmpVLayout->insertLayout(2, tmpLayout);
-	//	
-	// Stampa linea dello SPACE:
-	tmpLayout = new QHBoxLayout;
-    tmp = createNewKey(KEY_COPY, "copy");
-	tmp->setMaximumWidth(tmp->maximumWidth() * 2);
-	tmp->setMinimumWidth(tmp->minimumWidth() * 2);
-	tmpLayout->addWidget(tmp);
-    tmp = createNewKey(KEY_ALT, "ALT");
-	tmp->setMaximumWidth(tmp->maximumWidth() * 2);
-	tmp->setMinimumWidth(tmp->minimumWidth() * 2);
-	tmpLayout->addWidget(tmp);
-    tmp = createNewKey(KEY_SPACE, " ");
-	tmp->setMaximumWidth(tmp->maximumWidth() * 10);
-	tmp->setMinimumWidth(tmp->minimumWidth() * 10);
-	tmpLayout->addWidget(tmp);
-    // password echo button:
-    if (this->isEmbeddedKeyboard() == true)
-        tmpStyle = QString(KEY_HIDECHAR_EMBEDDED);
-    else
-        tmpStyle = QString(KEY_HIDECHAR);    
-    tmp = createNewKey(tmpStyle, "echo");
-	tmp->setMaximumWidth(tmp->maximumWidth() * 2);
-	tmp->setMinimumWidth(tmp->minimumWidth() * 2);
-	tmpLayout->addWidget(tmp);
-    //
-    tmp = createNewKey(KEY_PASTE, "paste");
-	tmp->setMaximumWidth(tmp->maximumWidth() * 2);
-	tmp->setMinimumWidth(tmp->minimumWidth() * 2);
-	tmpLayout->addWidget(tmp);
-	tmpVLayout->insertLayout(3, tmpLayout);
-#if defined (QT_ARCH_MACOSX)
-    tmpVLayout->setMargin(5);
-#endif
-	//
-    // aggancia il layout a tutto il form:
-    this->setLayout(tmpVLayout);
     this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     if (this->isZoomFacilityEnable()) {
         this->m_zoomedKey->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);

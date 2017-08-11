@@ -14,7 +14,7 @@ Tester::Tester(QWidget *parent)
 
     ui->setupUi(this);    
     myTranslator = new QTranslator(this);
-    this->myKeyboard = new widgetKeyBoard(false);
+    this->myKeyboard = new widgetKeyBoard(false, 0, true); // true = alpha numeric keyboard, false = numeric keyboard
     this->myKeyboard->setZoomFacility(true);
     this->myKeyboard->enableSwitchingEcho(true); // enable possibility to change echo through keyboard
     this->myKeyboard->createKeyboard(); // only create keyboard
@@ -68,10 +68,12 @@ void Tester::closeEvent(QCloseEvent * event)
 
 void Tester::changeEvent(QEvent *event)
 {
-    if (event->type() == QEvent::LanguageChange)
+    if (event->type() == QEvent::LanguageChange) {
         ui->retranslateUi(this);
-    else
+    }
+    else {
         QWidget::changeEvent(event);
+    }
 }
 
 

@@ -28,10 +28,10 @@
         Q_OBJECT
 
         public:
-            widgetKeyBoard(bool embeddedKeyboard = false, QWidget *activeForm = NULL, QWidget *parent = NULL);
+            widgetKeyBoard(bool embeddedKeyboard = false, QWidget *activeForm = NULL, bool onlyNumericPad = false, QWidget *parent = NULL);
             ~widgetKeyBoard();
 
-            void            createKeyboard(void);
+            void            createKeyboard();
             bool            isEmbeddedKeyboard(void);
             void            soundClick(void);
             void            setZoomFacility(bool active); // only valid for embedded keyboard
@@ -44,6 +44,7 @@
             void            enableSwitchingEcho(bool status); // if you don't want control echo from keyboard
             bool            isEnabledSwitchingEcho(void); // current status
             void            borderFrame(bool visible = true);
+            bool            isNumericPad();
             QLabel *        zoomedWidget();
 
         public slots:
@@ -75,6 +76,7 @@
             bool            m_echoMode; // status of current text object for echo
             bool            m_zoomFacilityEmbedded;
             bool            m_enablePasswordEcho; // controls the possibility to change among normal/password echo
+            bool            m_numericPad;
             QSound          m_player;
             QClipboard      *m_clipboard;
     };
