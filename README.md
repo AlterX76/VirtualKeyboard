@@ -15,6 +15,7 @@ Features:
 * Dual mode keyboard: large and small
 * zoom facility for pressed keys
 * embedded or floating keyboard
+* numeric keyboard
 
 Supported Languages:
 * Arabic
