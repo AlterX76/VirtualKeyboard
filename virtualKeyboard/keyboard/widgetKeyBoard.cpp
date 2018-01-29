@@ -182,7 +182,7 @@ void widgetKeyBoard::receiptChildKey(QKeyEvent *event, QLineEdit *focusThisContr
         return;
 //
     // inizia l'analisi del carattere ricevuto:
-    QString newKey = event->text().trimmed();
+    QString newKey = event->text();
     QString tmpReceiptString = nextInput->text();
     int     tmpPos = nextInput->cursorPosition();
 
