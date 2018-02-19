@@ -33,4 +33,3 @@ TRANSLATIONS += virtualBoard_it.ts \
 RESOURCES += virtualboard.qrc \
     languages.qrc
 
-LIBS += -lUser32
