@@ -180,12 +180,14 @@ void widgetKeyBoard::receiptChildKey(QKeyEvent *event, QLineEdit *focusThisContr
 }
     if (nextInput == NULL)
         return;
-//
+    //
     // inizia l'analisi del carattere ricevuto:
     QString newKey = event->text();
     QString tmpReceiptString = nextInput->text();
     int     tmpPos = nextInput->cursorPosition();
 
+    if (this->isNumericPad())
+        newKey = newKey.trimmed();
     if (NO_SPECIAL_KEY(newKey) == false) {
         if (IS_RETURN(newKey) == true || IS_TAB(newKey) == true) { // trattasi di TAB, si sposta alla text successiva
             nextInput = this->setDefaultTextStyle(nextInput);
@@ -227,8 +229,7 @@ void widgetKeyBoard::receiptChildKey(QKeyEvent *event, QLineEdit *focusThisContr
         }
         else if (IS_PASTE(newKey) == true)
             nextInput->setText(this->m_clipboard->text());
-        else if (IS_ALT(newKey) == true || IS_CTRL_LEFT(newKey) == true)
-        {
+        else if (IS_ALT(newKey) == true || IS_CTRL_LEFT(newKey) == true) {
             ; // non esegue nessuna operazione
         }
     }
@@ -314,7 +315,7 @@ void widgetKeyBoard::soundClick(void)
 #endif
 }
 
-void widgetKeyBoard::show(QWidget *activeForm, QLineEdit *first)
+void widgetKeyBoard::show(QWidget *activeForm, QLineEdit *first, bool frameless)
 {
     this->m_activeWindow = activeForm;
     this->init_keyboard(first);
@@ -324,7 +325,7 @@ void widgetKeyBoard::show(QWidget *activeForm, QLineEdit *first)
         this->setStatusEchoMode(false);
         this->m_clipboard->clear();
         this->move(20, QApplication::desktop()->screenGeometry().height() - this->height() - 200);
-        this->borderFrame(true);
+        this->borderFrame(frameless);
         QWidget::show();
     }
     else {
@@ -337,8 +338,8 @@ void widgetKeyBoard::borderFrame(bool visible)
 {
     if (visible == true)
         this->setWindowFlags(Qt::Dialog | Qt::WindowStaysOnTopHint | Qt::MSWindowsFixedSizeDialogHint);
-    //else
-    //    this->setWindowFlags(Qt::Dialog | Qt::WindowStaysOnTopHint | Qt::MSWindowsFixedSizeDialogHint | Qt::CustomizeWindowHint);
+    else
+        this->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
 }
 
 bool widgetKeyBoard::isNumericPad()

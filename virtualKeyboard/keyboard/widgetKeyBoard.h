@@ -48,7 +48,7 @@
             QLabel *        zoomedWidget();
 
         public slots:
-            void            show(QWidget *activeForm, QLineEdit *first = NULL);
+            void            show(QWidget *activeForm, QLineEdit *first = NULL, bool frameless = false);
             void            hide(bool noChangeColor);
             void            focusThis(QLineEdit *control);
 

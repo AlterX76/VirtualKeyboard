@@ -14,13 +14,13 @@ Tester::Tester(QWidget *parent)
 
     ui->setupUi(this);    
     myTranslator = new QTranslator(this);
-    this->myKeyboard = new widgetKeyBoard(false, 0, true); // true = alpha numeric keyboard, false = numeric keyboard
+    this->myKeyboard = new widgetKeyBoard(true, 0, true); // false = alpha numeric keyboard, true = numeric keyboard
     this->myKeyboard->setZoomFacility(true);
     this->myKeyboard->enableSwitchingEcho(true); // enable possibility to change echo through keyboard
     this->myKeyboard->createKeyboard(); // only create keyboard
     ui->verticalLayout->addWidget(new QLabel(tr("Focus that below without virtual keyboard TAB:")));
-    ui->verticalLayout->addWidget(new exampleMyFocus(this->myKeyboard)); // example how-to voluntary focus (hand-focus or mouse-focus)
-    ui->verticalLayout->addWidget(new exampleMyFocus(this->myKeyboard)); // example how-to voluntary focus (hand-focus or mouse-focus) - second example
+    ui->verticalLayout->addWidget(new exampleMyFocus(this->myKeyboard)); // example how-to focus without TAB (hand-focus or mouse-focus)
+    ui->verticalLayout->addWidget(new exampleMyFocus(this->myKeyboard)); // example how-to focus without TAB focus (hand-focus or mouse-focus) - second example
     ui->listWidget->addItem("Italian");
     ui->listWidget->addItem("German");
     ui->listWidget->addItem("French");
@@ -45,7 +45,7 @@ widgetKeyBoard *Tester::getKeyboard()
 
 void Tester::on_pushButton_clicked()
 {
-    myKeyboard->show(this); // once created keyboard object, use this method to switch between windows
+    myKeyboard->show(this, NULL, false); // once created keyboard object, use this method to switch between windows
 #if QT_VERSION >= 0x050000
     this->myKeyboard->move(this->x(), this->y() + this->myKeyboard->height()); // to move keyboard	
 #else
