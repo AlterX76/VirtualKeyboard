@@ -20,6 +20,7 @@ Features:
 Supported Languages:
 * Arabic
 * English
+* PIPPO
 * French
 * German
 * Italian
