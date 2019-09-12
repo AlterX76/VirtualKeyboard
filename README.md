@@ -20,8 +20,7 @@ Features:
 Supported Languages:
 * Arabic
 * English
-* PIPPO
-* SUUGA
+* French
 * German
 * Italian
 * Russian
