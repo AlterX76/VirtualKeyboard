@@ -1,4 +1,3 @@
-
 # VirtualKeyboard (<a href='https://www.linux-apps.com/p/1132203'>linux-apps</a>)
 A virtual keyboard for touch-screen application
 
